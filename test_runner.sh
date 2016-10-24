@@ -5,18 +5,17 @@ SERVICE_ENDPOINT='/e/flatiron_xcpretty'
 CURR_DIR="$2"
 NETRC=~/.netrc
 
-
 if [ -f ${NETRC} ]; then
-  if grep -q flatiron-push ${NETRC}; then
-    GITHUB_USERNAME=`grep -A1 flatiron-push ${NETRC} | grep login | awk '{print $2}'`
-    GITHUB_USER_ID=`grep -A2 flatiron-push ${NETRC} | grep password | awk '{print $2}'`
-  else
-    echo "Please run the iOS setup script before running any tests."
-    exit 1
-  fi
+if grep -q flatiron-push ${NETRC}; then
+GITHUB_USERNAME=`grep -A1 flatiron-push ${NETRC} | grep login | awk '{print $2}'`
+GITHUB_USER_ID=`grep -A2 flatiron-push ${NETRC} | grep password | awk '{print $2}'`
 else
-  echo "Please run the iOS setup script before running any tests."
-  exit 1
+echo "Please run the iOS setup script before running any tests."
+exit 1
+fi
+else
+echo "Please run the iOS setup script before running any tests."
+exit 1
 fi
 
 cd "$1"
